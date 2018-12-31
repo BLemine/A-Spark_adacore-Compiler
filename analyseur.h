@@ -59,3 +59,17 @@ typedef enum {
     COMMENT=149
 
 } typetoken;
+
+// this part below was added on 31/12/2018
+
+typedef varInfos{
+    char * info;
+    int line;
+} varInfos;
+
+typedef enum {
+    MULT=200,
+    DIV=201,
+    MINUS=202,
+    PLUS=203
+}operation;

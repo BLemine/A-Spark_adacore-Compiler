@@ -414,11 +414,11 @@ void main(int argc,char* argv[]){
     char str[100]="";
     strcpy(str,argv[0]);
     ///////////////////////////////////////////
-    //printf("argv[0] : %s\n",str);
+    printf("argv[0] : %s\n",argv[0]);
     ///////////////////////////////////////////
     FILE *fp = fopen(str, "r"); 
-    int ch = getc(fp); 
-    while((ch!=EOF) &&(token!=END)/*&& (token!=BEG_IN)*/){
+    /*int ch = getc(fp); 
+    while((ch!=EOF) &&(token!=END)){
         if(!_prove()){
             res=false;
         }
@@ -430,5 +430,5 @@ void main(int argc,char* argv[]){
     }
     else{
         printf("not a good prog at all\n");
-    }
+    }*/
 }
