@@ -72,4 +72,9 @@ typedef enum {
     DIV=201,
     MINUS=202,
     PLUS=203
-}operation;
+}Oper;
+
+typedef CASE{
+    int num;
+    WHEN_BODY * when_bd;
+}CASE;
