@@ -11,7 +11,6 @@ void create_error(int lineErr,char *typeErr,char *tokenErr){
     strcpy(err->type,typeErr);
     strcpy(err->text,tokenErr);
     err->line=lineErr;
-
     *(errors+cpt)=*err;
     cpt++;
 }
