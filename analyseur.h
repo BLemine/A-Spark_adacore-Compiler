@@ -1,11 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+////////// boolean enum
 typedef enum {
 	false=0, 
 	true=1
 	} boolean;
-
+/////////////////////////
+/// tokens enum
 typedef enum {
     NUM =100,
     PLUS=101,
@@ -42,7 +44,8 @@ typedef enum {
     FLOAT=132,
     INTEGER=133,
     POINT=134,
-    DEF_TYPE_VAR=135,
+//    DEF_TYPE_VAR=135,
+    PT_ASSIGN=135,	
     PT_COMMA=136,
     COMMA=137,
     APPOST=138,
@@ -53,28 +56,17 @@ typedef enum {
     SUP=143,
     INF=144,
     IDF=145,
-    CONST=146, // this key is used for another objective 
+    CONSTANT=146, // this key is used for another objective 
     FUNC=147,
     GUILL=148,
-    COMMENT=149
+    COMMENT=149,
+    /// 2401-19
+    IDFPACK=150,
+    BODY=151
 
 } typetoken;
 
-// this part below was added on 31/12/2018
-
-typedef varInfos{
-    char * info;
-    int line;
-} varInfos;
-
-typedef enum {
-    MULT=200,
-    DIV=201,
-    MINUS=202,
-    PLUS=203
-}Oper;
-
-typedef CASE{
-    int num;
-    WHEN_BODY * when_bd;
-}CASE;
+typedef struct {
+    int *line;
+    char *expectedIDF;
+}syntaxErr;
