@@ -1,54 +1,60 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
 #include "error.h"
 
-error * err;
-static error * errors;
-static int cpt=0;
+static warning *warnTb[lenghtWarn];
 
-void create_error(int lineErr,char *typeErr,char *tokenErr){
-    strcpy(err->type,typeErr);
-    strcpy(err->text,tokenErr);
-    err->line=lineErr;
-    *(errors+cpt)=*err;
-    cpt++;
+static error *errTb[lenghtErr];
+
+void printError(error *er){
+    switch(er->type){
+        case  varNotDeclared:
+            printf("%s %d de type : variable non declarée\n",er->name,*er->line);
+            break;
+        case varAlreadyDec:
+            printf("%s %d de type : variable déjà declarée\n",er->name,*er->line);
+            break;
+        case varBadlyDeclared:
+            printf("%s %d de type : variable mal declarée\n",er->name,*er->line);
+            break;
+        case IncompatibAssign:
+            printf("%s %d de type : Incompatibilité de types\n",er->name,*er->line);
+            break;
+        case IncompatibOper:
+            printf("%s %d de type : Incompatibilité dans l'opération\n",er->name,*er->line);
+            break;
+        case varOutIn:
+            printf("%s %d de type : variable non declarée\n",er->name,*er->line);
+            break;
+    }
 }
-char * getError(){
-    char * strErr=malloc(100*sizeof(char));
-    char *auxLine=malloc(10*sizeof(char));
-    strcat(strErr,err->type);strcat(strErr,"Error");
-    strcat(strErr," : ");
-    strcat(strErr,err->text);
-    sprintf(auxLine,"%d",(err->line));
-    strcat(strErr," at line number ");strcat(strErr,auxLine);
-    return strErr;
+
+int getLastIndex(error *err[lenghtErr]){
+    int i=0;
+    int LastIndex = 0;
+    while(i<lenghtErr){
+        if(strlen(err[i]->name)==0){
+            LastIndex=i;
+            break;
+        }
+        i++;
+    }
+    return LastIndex;
 }
-int nbr_sm_errors(char * tab){
+
+void createErrTb(error *err[lenghtErr]){
+    for(int i=0;i<lenghtErr;i++){
+        err[i]=malloc(sizeof(error));
+        err[i]->name=malloc(20*sizeof(char));
+        err[i]->line=malloc(sizeof(int));
+    }
+}
+void appendError(error *err[lenghtErr],char *name,int line, errorType type){
+    strcpy(err[getLastIndex(err)]->name,name);
+    err[getLastIndex(err)]->line=&line;
+    err[getLastIndex(err)]->type=type;
+}
+int main()
+{
+    printf("Hello, here's Errors management !\n");
+
     return 0;
-}
-char * print_sm_error(int line,char * error){
-    printf("%s %d",error,line);
-}
-void main(){
-    errors=malloc(1024*sizeof(char));
-    /*for(int j=0;j<1024;j++){
-        (errors+j)->type=NULL;
-        (errors+j)->text=NULL;
-        (errors+j)->line=0;
-    }*/
-        
-    err=malloc(sizeof(error));
-    err->type=malloc(100*sizeof(char));
-    err->text=malloc(100*sizeof(char));
-
-    create_error(1,"semantic","la var blabla ..");
-    printf("%s\n",getError());
-    create_error(45,"syntaxic","coucou gregoire ..");
-    printf("%s\n",getError());
-    
-    /*for(int i=0;i<10;i++)
-        //if(((errors+i)->text)!=NULL)
-            printf("%s\n",(errors+i)->text);*/
-    //printf("%d",cpt);
 }
